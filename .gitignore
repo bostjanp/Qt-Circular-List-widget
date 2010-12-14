@@ -1,0 +1,15 @@
+#Lines starting with '#' are considered comments.
+# Ignore directory.
+build*
+doc
+# Ignore files
+*~
+*.[oax]
+*.swp
+*.jpg
+*.org
+*.db
+!*.sh
+# except foo.html which is maintained by hand.
+# Ignore objects and archives.
+
