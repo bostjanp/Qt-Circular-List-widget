@@ -33,8 +33,7 @@
  \version 0.1
  \date 2010
 
- \todo remove item last first 
- \todo sort items
+ \todo on resize set selected item in center
 */
 
 #ifndef _CIRCULARLW_H_
@@ -95,6 +94,7 @@ private:
 //	data section
 // ui section
 	void addToFrame(int row);	//!< function add item at row position to frame
+	QPoint drawItems(QList <QLabel *> list, QPoint startPos);		//!< draw items from list to viewport
 protected:
 	virtual void keyPressEvent(QKeyEvent *event);		//!< overridden function
 	virtual void paintEvent(QPaintEvent *event);			//!< overridden function

@@ -223,6 +223,24 @@ void QCircularLW::initUi()
 
 }
 
+QPoint QCircularLW::drawItems(QList <QLabel *> list, QPoint startPos)
+{
+	QListIterator<QLabel *>i(list);
+	QLabel *item;
+
+	i.toFront();
+	while(i.hasNext())
+	{
+		item = i.next();
+//		qDebug()<<item->pos() << "FB.item: " <<item->text() << startPos;
+		item->move(startPos);
+		item->show();
+		startPos.setY(startPos.y()+item->height());
+	}
+
+	return startPos;
+}
+
 void QCircularLW::paintEvent(QPaintEvent *event)
 {
 	if (_bNewItem)
@@ -230,42 +248,15 @@ void QCircularLW::paintEvent(QPaintEvent *event)
 		_bNewItem=false;
 		
 		QListIterator<QLabel *>i(_lFakeS);
-		QLabel *item;
 		QPoint p(0,0);
-//		qDebug()<< "frame: " << _pfCanvas->pos() << "fake no.: " << _lFakeS.count() << " " << _lFakeE.count();
-		// at begining
- 		i.toFront();
-		while(i.hasNext())
-		{
-			item = i.next();
-//			qDebug()<<item->pos() << "FB.item: " <<item->text() << p;
-			item->move(p);
-			item->show();
-			p.setY(p.y()+item->height());
-		}
+		// fake start
+		p=drawItems(_lFakeS,p);
 		// real
-		i=_lItems;
- 		i.toFront();
-		while(i.hasNext())
-		{
-			item = i.next();
-//			qDebug()<<item->pos() << "item: " <<item->text() << p;
-			item->move(p);
-			item->show();
-			p.setY(p.y()+item->height());
-		}
-		// real
-		i=_lFakeE;
- 		i.toFront();
-		while(i.hasNext())
-		{
-			item = i.next();
-//			qDebug()<<item->pos() << "FE.item: " <<item->text() << p;
-			item->move(p);
-			item->show();
-			p.setY(p.y()+item->height());
-		}
-		_pfCanvas->setFixedHeight(p.y()+item->height());
+		p=drawItems(_lItems,p);
+		// fake end
+		p=drawItems(_lFakeE,p);
+		
+		_pfCanvas->setFixedHeight(p.y()+_lFakeE.last()->height());
 	}
 	centerPosition(currentItem());
 }
