@@ -154,7 +154,9 @@ void utQCircularLW::KeyTest()
 	int row=0, i=0;
 	qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
 
+#ifdef DEBUG
 	qDebug()<<"current row: " <<_ptstw->currentRow();
+#endif
 	_ptstw->setCurrentRow(0);
 	QTest::keyClick(_ptstw,Qt::Key_Up);
 	QCOMPARE(_ptstw->currentRow(),_ptstw->count()-1);

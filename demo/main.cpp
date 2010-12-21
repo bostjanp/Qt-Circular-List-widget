@@ -44,8 +44,10 @@ int main (int argc, char *argv[])
 	clv.insertItem(12,QObject::tr("insert 12"));
 	clv.insertItem(15,QObject::tr("insert 15"));
 	clv.insertItem(23,QObject::tr("insert 23"));
+#ifdef DEBUG
 	qDebug()<<"contents h:"<< clv.contentsRect().height()<< " w:"<<clv.contentsRect().width();
 	qDebug()<<"widget h:"<< clv.size().height()<< " w:"<<clv.size().width();
+#endif
 
 	clv.setCurrentRow(0);
 	clv.show();
