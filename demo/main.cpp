@@ -2,9 +2,7 @@
 #include <QObject>
 #include <QDebug>
 #include <QPoint>
-//#include <QWidget>
 #include <QListWidgetItem>
-//#include <QTranslator>
 
 #include "qcircularlw.h"
 
@@ -22,7 +20,6 @@ int main (int argc, char *argv[])
 	clv.addItem(QObject::tr("Item 05"));
 	clv.addItem(QObject::tr("Item 06"));
 	clv.addItem(QObject::tr("Item 07"));
-//	clv.addItem(QObject::tr(""));
 	clv.addItem(QObject::tr("Item 09"));
 	clv.addItem(QObject::tr("Item 10"));
 	clv.addItem(QObject::tr("Item 11"));
@@ -40,7 +37,6 @@ int main (int argc, char *argv[])
 	clv.addItem(QObject::tr("Item 23"));
 	clv.addItem(QObject::tr("Item 24"));
 	clv.addItem(QObject::tr("Item 25"));
-//	clv.insertItem(0,QObject::tr("Item -1"));
 
 
 	clv.insertItem(0,QObject::tr("insert 0"));
@@ -48,8 +44,10 @@ int main (int argc, char *argv[])
 	clv.insertItem(12,QObject::tr("insert 12"));
 	clv.insertItem(15,QObject::tr("insert 15"));
 	clv.insertItem(23,QObject::tr("insert 23"));
+#ifdef DEBUG
 	qDebug()<<"contents h:"<< clv.contentsRect().height()<< " w:"<<clv.contentsRect().width();
 	qDebug()<<"widget h:"<< clv.size().height()<< " w:"<<clv.size().width();
+#endif
 
 	clv.setCurrentRow(0);
 	clv.show();

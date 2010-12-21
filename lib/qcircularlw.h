@@ -313,3 +313,11 @@ protected:
  *
  * This function scroll the items by one up/down while the selected item stays in the center of the viewport.
 */
+/*! \fn QPoint drawItems(QList <QLabel *> list, QPoint startPos)
+ * \param list list with items to draw
+ * \param startPos start point in viewport
+ * \returns pont after the last item
+ *
+ * Function draws items from #list from the starting position #startPos one by one. Next item will be draw on the seame x position 
+ * while y is increased by item(n-1)->height. After the last item it returns the end point.
+ */

@@ -53,7 +53,11 @@ QCircularLW::~QCircularLW()
 void QCircularLW::addItem(QLabel *item)
 {
 	_lItems.append(item);
+
+#ifdef DEBUG
 	qDebug() <<"item h: " << item->height() << " w: " << item->width();
+#endif
+
 	addToFrame(_lItems.count() - 1);
 	_bNewItem=true;
 }
@@ -173,7 +177,9 @@ void QCircularLW::updateFakeData()
 {
 	if (_iMaxItemsDisplay > _lItems.count()) 
 	{
+#ifdef DEBUG
 		qDebug() << "items: " << _lItems.count() << " max disp: " << _iMaxItemsDisplay;
+#endif
 		while(_lFakeS.count()>0) delete _lFakeS.takeFirst();
 		while(_lFakeE.count()>0) delete _lFakeE.takeFirst();
 		return;
@@ -189,7 +195,9 @@ void QCircularLW::updateFakeData()
 	i.previous();
 	item=i.peekPrevious();
 
+#ifdef DEBUG
 	qDebug()<< "starting item: " << item->text();
+#endif
 	while(i.hasNext())
 	{
 		item = i.next();
@@ -232,7 +240,9 @@ QPoint QCircularLW::drawItems(QList <QLabel *> list, QPoint startPos)
 	while(i.hasNext())
 	{
 		item = i.next();
-//		qDebug()<<item->pos() << "FB.item: " <<item->text() << startPos;
+#ifdef DEBUG
+		qDebug()<<item->pos() << "FB.item: " <<item->text() << startPos;
+#endif
 		item->move(startPos);
 		item->show();
 		startPos.setY(startPos.y()+item->height());
@@ -268,9 +278,9 @@ void QCircularLW::keyPressEvent(QKeyEvent *event)
 	switch(event->key())
 	{
 		case Qt::Key_Down:
-//	qDebug() << "keyPressEvent Down";
-			//scrollContentsBy(0,10);
-			//_pfCanvas->move(0,10);
+#ifdef DEBUG
+	qDebug() << "keyPressEvent Down";
+#endif
 			if (currentRow()==_lItems.count()-1) 
 			{
 				if(_iMaxItemsDisplay<_lItems.count()) setCurrentRow(0);
@@ -279,9 +289,9 @@ void QCircularLW::keyPressEvent(QKeyEvent *event)
 			DoBase=false;
 			break;
 		case Qt::Key_Up:
-//	qDebug() << "keyPressEvent Up";
-			//scrollContentsBy(0,-10);
-			//_pfCanvas->move(0,-10);
+#ifdef DEBUG
+	qDebug() << "keyPressEvent Up";
+#endif
 			if (currentRow()==0) 
 			{
 				if(_iMaxItemsDisplay<_lItems.count()) setCurrentRow(_lItems.count()-1);
@@ -291,7 +301,9 @@ void QCircularLW::keyPressEvent(QKeyEvent *event)
 			break;
 		case Qt::Key_F:
 			{
+#ifdef DEBUG
 				qDebug()<<"rm item: " << takeItem(currentRow())->text();
+#endif
 				setCurrentRow(currentRow());
 				_bNewItem=true;
 				
@@ -307,7 +319,9 @@ void QCircularLW::keyPressEvent(QKeyEvent *event)
 
 void QCircularLW::resizeEvent(QResizeEvent *event)
 {
+#ifdef DEBUG
 	qDebug()<<"resizeEvent";
+#endif
 	QRect r=_pfCanvas->geometry();	
 
 	r=_pfCanvas->geometry();
@@ -326,8 +340,9 @@ void QCircularLW::resizeEvent(QResizeEvent *event)
 			item->setGeometry(r);
 		}
 	}
-//	qDebug()<<"frame: " << _pfCanvas->geometry() << " view: " << viewport()->geometry();
-//	centerPosition(currentItem());
+#ifdef DEBUG
+	qDebug()<<"frame: " << _pfCanvas->geometry() << " view: " << viewport()->geometry();
+#endif
 	setMaxItemDisplay();
 	updateFakeData();
 	QAbstractScrollArea::resizeEvent(event);
@@ -337,7 +352,9 @@ void QCircularLW::wheelEvent(QWheelEvent *event)
 {
 	int iStep = (event->delta()/8)/15;
 	
+#ifdef DEBUG
 	qDebug() << "weelEvent: delta=" << event->delta() << " step= " << iStep;
+#endif
 	if (iStep==1)	keyPressEvent(new QKeyEvent(QEvent::KeyPress,Qt::Key_Down,Qt::NoModifier,""));
 	else 				keyPressEvent(new QKeyEvent(QEvent::KeyPress,Qt::Key_Up,Qt::NoModifier,""));
 }
@@ -345,11 +362,12 @@ void QCircularLW::wheelEvent(QWheelEvent *event)
 void QCircularLW::addToFrame(int row)
 {
 	QLabel *item = _lItems.at(row);
-//	qDebug()<< " item: " <<item->text() << " frame size: " << _pfCanvas->size();
+#ifdef DEBUG
+	qDebug()<< " item: " <<item->text() << " frame size: " << _pfCanvas->size();
+#endif
 	item->setParent(_pfCanvas);
 	QFontMetrics fm(item->font());
 	item->setGeometry(0,-20,_pfCanvas->width(),fm.height());
-//	item->hide();
 }
 
 void	QCircularLW::currentItemChanged (QLabel *current, QLabel *previous)
@@ -371,7 +389,9 @@ void	QCircularLW::currentItemChanged (QLabel *current, QLabel *previous)
 void QCircularLW::centerPosition(QLabel *item)
 {
 	int iCenter= viewport()->size().height()/2 - item->size().height()/2;
-//	qDebug() <<"center: " << iCenter << "frame: " << _pfCanvas->pos() << "item: " << item->pos();
+#ifdef DEBUG
+	qDebug() <<"center: " << iCenter << "frame: " << _pfCanvas->pos() << "item: " << item->pos();
+#endif
 
 	_pfCanvas->move(0,iCenter - item->pos().y());
 }
@@ -381,6 +401,8 @@ void QCircularLW::setMaxItemDisplay()
 	int old = _iMaxItemsDisplay;
 	_iMaxItemsDisplay=viewport()->size().height()/currentItem()->size().height() +1;
 	if (old != _iMaxItemsDisplay) _bNewItem=true;
-//	qDebug() << "max item: " << _iMaxItemsDisplay << " count: " << _lItems.count();
+#ifdef DEBUG
+	qDebug() << "max item: " << _iMaxItemsDisplay << " count: " << _lItems.count();
+#endif
 }
 // ui section

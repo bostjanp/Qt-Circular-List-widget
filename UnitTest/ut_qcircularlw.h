@@ -22,14 +22,12 @@ private:
 
 	int _iItems;						//!< number of items
 	QList <QLabel *> _lItems;		//!< container of items for tests
-//	int _iMaxDisplayed;				//!< max items in viewport
 
 
 private slots:
 
 	void Count();					//!< test count() function
 	
-	// add functions
 	void AddLabel();				//!< test addItem(QString&)	
 	void AddItem();				//!< test addItem(QListWidgetItem *item)
 	void AddList();				//!< test addItems(QStringList &labels)
