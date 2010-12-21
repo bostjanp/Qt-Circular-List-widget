@@ -20,7 +20,6 @@ void utQCircularLW::Count()
 
 void utQCircularLW::AddLabel()
 {
-//	qDebug()<<"addLabel";
 	_lItems.append(new QLabel("addLabel 01"));
 	_ptstw->addItem("addLabel 01");
 	_lItems.append(new QLabel("addLabel 02"));
@@ -130,7 +129,6 @@ void utQCircularLW::ChangeItem()
 
 	QEXPECT_FAIL("","item does not exitst",Continue);
 	QCOMPARE(_ptstw->currentItem(),&tmp);
-//	QCOMPARE(_ptstw->currentItem(),i.previous());
 }
 
 void utQCircularLW::ReturnItem()
@@ -193,9 +191,6 @@ void utQCircularLW::KeyTest()
 
 void utQCircularLW::initTestCase() 
 {
-//	_ptstw->setGeometry(100,100,150,100);
-//	_iMaxDisplayed=12;
-//	_ptstw->show();
 }
 
 void utQCircularLW::cleanupTestCase()
@@ -207,7 +202,6 @@ void utQCircularLW::cleanupTestCase()
 
 void utQCircularLW::init()
 {
-//	qDebug()<<" init...";
 	_lItems.append(new QLabel("init 00"));
 	_lItems.append(new QLabel("init 01"));
 	_lItems.append(new QLabel("init 02"));
@@ -231,7 +225,6 @@ void utQCircularLW::init()
 
 void utQCircularLW::cleanup()
 {
-//	qDebug()<<" cleanup...";
 	_lItems.clear();
 	_ptstw->clear();
 }

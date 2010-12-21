@@ -269,8 +269,6 @@ void QCircularLW::keyPressEvent(QKeyEvent *event)
 	{
 		case Qt::Key_Down:
 //	qDebug() << "keyPressEvent Down";
-			//scrollContentsBy(0,10);
-			//_pfCanvas->move(0,10);
 			if (currentRow()==_lItems.count()-1) 
 			{
 				if(_iMaxItemsDisplay<_lItems.count()) setCurrentRow(0);
@@ -280,8 +278,6 @@ void QCircularLW::keyPressEvent(QKeyEvent *event)
 			break;
 		case Qt::Key_Up:
 //	qDebug() << "keyPressEvent Up";
-			//scrollContentsBy(0,-10);
-			//_pfCanvas->move(0,-10);
 			if (currentRow()==0) 
 			{
 				if(_iMaxItemsDisplay<_lItems.count()) setCurrentRow(_lItems.count()-1);
@@ -327,7 +323,6 @@ void QCircularLW::resizeEvent(QResizeEvent *event)
 		}
 	}
 //	qDebug()<<"frame: " << _pfCanvas->geometry() << " view: " << viewport()->geometry();
-//	centerPosition(currentItem());
 	setMaxItemDisplay();
 	updateFakeData();
 	QAbstractScrollArea::resizeEvent(event);
@@ -349,7 +344,6 @@ void QCircularLW::addToFrame(int row)
 	item->setParent(_pfCanvas);
 	QFontMetrics fm(item->font());
 	item->setGeometry(0,-20,_pfCanvas->width(),fm.height());
-//	item->hide();
 }
 
 void	QCircularLW::currentItemChanged (QLabel *current, QLabel *previous)
