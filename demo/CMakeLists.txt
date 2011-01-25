@@ -11,7 +11,7 @@ cmake_minimum_required(VERSION 2.6)
 	message (STATUS "preparing build scripts fot ${PACKAGE}.")
 	message (STATUS "***************************************************************")
 
-	SET( CMAKE_CXX_FLAGS_DEBUG "${UNITTEST_FLAGS} -Wall -DDEBUG" CACHE STRING
+	SET( CMAKE_CXX_FLAGS_DEBUG "${UNITTEST_FLAGS} -Wall -DDEBUG -ggdb" CACHE STRING
 		"Flags used by the CXX compiler during debug builds."
 		FORCE )
 	SET( CMAKE_CXX_FLAGS_RELEASE "-Wall" CACHE STRING

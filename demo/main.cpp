@@ -47,9 +47,10 @@ int main (int argc, char *argv[])
 #ifdef DEBUG
 	qDebug()<<"contents h:"<< clv.contentsRect().height()<< " w:"<<clv.contentsRect().width();
 	qDebug()<<"widget h:"<< clv.size().height()<< " w:"<<clv.size().width();
+	qDebug()<<"set current row to 0";
 #endif
-
 	clv.setCurrentRow(0);
+	qDebug()<<"show";
 	clv.show();
 
 	return a.exec();

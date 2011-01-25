@@ -241,7 +241,7 @@ QPoint QCircularLW::drawItems(QList <QLabel *> list, QPoint startPos)
 	{
 		item = i.next();
 #ifdef DEBUG
-		qDebug()<<item->pos() << "FB.item: " <<item->text() << startPos;
+		qDebug()<<item->pos() << "item: " <<item->text() << startPos;
 #endif
 		item->move(startPos);
 		item->show();
@@ -266,9 +266,13 @@ void QCircularLW::paintEvent(QPaintEvent *event)
 		// fake end
 		p=drawItems(_lFakeE,p);
 		
-		_pfCanvas->setFixedHeight(p.y()+_lFakeE.last()->height());
+		//_pfCanvas->setFixedHeight(p.y()+_lFakeE.last()->height());
+		if(!_lFakeE.empty())
+			_pfCanvas->setFixedHeight(p.y()+_lFakeE.last()->height());
+		else
+			_pfCanvas->setFixedHeight(p.y());
 	}
-	centerPosition(currentItem());
+	qDebug()<<"canvas restangle: " << _pfCanvas->pos();
 }
 
 void QCircularLW::keyPressEvent(QKeyEvent *event)
@@ -320,7 +324,7 @@ void QCircularLW::keyPressEvent(QKeyEvent *event)
 void QCircularLW::resizeEvent(QResizeEvent *event)
 {
 #ifdef DEBUG
-	qDebug()<<"resizeEvent";
+	qDebug()<<"resizeEvent: cancas geometry "<<_pfCanvas->geometry();
 #endif
 	QRect r=_pfCanvas->geometry();	
 
@@ -388,6 +392,7 @@ void	QCircularLW::currentItemChanged (QLabel *current, QLabel *previous)
 
 void QCircularLW::centerPosition(QLabel *item)
 {
+	if (item->pos().y() < 0) return;
 	int iCenter= viewport()->size().height()/2 - item->size().height()/2;
 #ifdef DEBUG
 	qDebug() <<"center: " << iCenter << "frame: " << _pfCanvas->pos() << "item: " << item->pos();
